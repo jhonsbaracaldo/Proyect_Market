@@ -1,10 +1,9 @@
+package Vista;
 
 import Services.readerMavenCSV;
-import model.Product;
 
-import Services.productService;
+import Domain.dao.crud.productService;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -20,7 +19,7 @@ public class Main {
                 seleccion = sc.nextInt();
                 switch (seleccion) {
 
-                    case 1-> productServic.cargarProductosDesdeCSV("C:\\Users\\acer\\IdeaProjects\\Market\\resources\\inventory.csv");
+                   // case 1->
                     case 2-> productServic.add();
                     case 3-> productServic.remove();
                     case 4-> readerMavenCSV.readerMavenCSV();

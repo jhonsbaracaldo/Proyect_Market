@@ -1,4 +1,4 @@
-package Services;
+package Domain.dao.crud;
 
 public interface IProductservices {
     void add();

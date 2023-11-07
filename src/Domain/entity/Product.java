@@ -1,8 +1,4 @@
-package model;
-import Services.IProductservices;
-
-import java.util.ArrayList;
-import java.util.List;
+package Domain.entity;
 
 public class Product {
 

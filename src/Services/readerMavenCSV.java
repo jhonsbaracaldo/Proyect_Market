@@ -1,8 +1,9 @@
 package Services;
 
+import Domain.dao.crud.productService;
 import model.RemoveToString;
 
-import model.Product;
+import Domain.entity.Product;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -13,6 +14,16 @@ import java.util.List;
 
 public class readerMavenCSV {
     int lastCode=-1;
+    String nombre;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getLastCode() {
+        return lastCode;
+    }
+
     public void  readerMavenCSV (){
         //1. Instanciar la clase productServicetos para poder llamar la lista
         productService productService = new productService();
@@ -35,7 +46,7 @@ public class readerMavenCSV {
 
                 int codigo = Integer.parseInt(csvRecord.get(0));
                 lastCode = Math.max(lastCode, codigo);
-                String nombre = csvRecord.get(1);
+                 nombre = csvRecord.get(1);
                 String descripcion = csvRecord.get(2);
                 String categoria = csvRecord.get(3);
                 String etiqueta = csvRecord.get(4);
@@ -54,10 +65,13 @@ public class readerMavenCSV {
             e.printStackTrace();
         }
 
-                if (lastCode >= 0) {
-                    System.out.println("El último código en el archivo CSV es: " + lastCode);
-                } else {
-                    System.out.println("No se encontraron códigos en el archivo CSV.");
-                }
+
+    }
+    public void search(){
+        if (lastCode >= 0) {
+            System.out.println("El último código en el archivo CSV es: " + lastCode);
+        } else {
+            System.out.println("No se encontraron códigos en el archivo CSV.");
+        }
     }
 }

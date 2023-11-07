@@ -1,4 +1,7 @@
 package model;
+
+import Domain.entity.Product;
+
 public class RemoveToString extends Product {
     public RemoveToString( Integer code,String name, String description, String category, String label, double price, String url) {
         super(code,name, description, category, label, price, url);
