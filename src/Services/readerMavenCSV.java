@@ -11,23 +11,20 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 public class readerMavenCSV {
-    int lastCode=-1;
-    String nombre;
+    Scanner reader = new Scanner(System.in);
+    Product product = new Product();
+     int lastCode =-1;
+     public int getLastCode() {
+        return lastCode;}
+//    public readerMavenCSV() {}
 
-    public String getNombre() {
-        return nombre;
-    }
 
-    public int getLastCode() {
-        return lastCode;
-    }
-
-    public void  readerMavenCSV (){
-        //1. Instanciar la clase productServicetos para poder llamar la lista
-        productService productService = new productService();
-        //2.Obtener la lista de productos que se encuentra en el objeto productService
+    public void  readerMavenCSV (productService productService){
+        //1.Obtener la lista de productos que se encuentra en el objeto productService
         List<Product> productList = productService.getProductList();
 
         try {
@@ -46,17 +43,18 @@ public class readerMavenCSV {
 
                 int codigo = Integer.parseInt(csvRecord.get(0));
                 lastCode = Math.max(lastCode, codigo);
-                 nombre = csvRecord.get(1);
-                String descripcion = csvRecord.get(2);
-                String categoria = csvRecord.get(3);
-                String etiqueta = csvRecord.get(4);
-                double precio = Double.parseDouble(csvRecord.get(5));
-                String url = csvRecord.get(6);
+                product.setName(csvRecord.get(1));
+                product.setDescription(csvRecord.get(2));
+                product.setCategory(csvRecord.get(3))  ;
+                product.setLabel(csvRecord.get(4));
+                product.setPrice(Double.parseDouble(csvRecord.get(5)));
+                product.setUrl(csvRecord.get(6));
 
-                Product producto = new Product(codigo, nombre, descripcion, categoria, etiqueta, precio, url);
+
+                Product producto = new Product(codigo, product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl());
                 productList.add(producto);
 
-                RemoveToString remove = new RemoveToString(codigo, nombre, descripcion, categoria, etiqueta, precio, url);
+                RemoveToString remove = new RemoveToString(codigo,product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl());
                 System.out.println(remove);
 
 
@@ -65,13 +63,7 @@ public class readerMavenCSV {
             e.printStackTrace();
         }
 
+    }
 
-    }
-    public void search(){
-        if (lastCode >= 0) {
-            System.out.println("El último código en el archivo CSV es: " + lastCode);
-        } else {
-            System.out.println("No se encontraron códigos en el archivo CSV.");
-        }
-    }
 }
+

@@ -1,5 +1,7 @@
 package Domain.dao.crud;
 
+
+
 import Domain.entity.Product;
 import Services.readerMavenCSV;
 
@@ -7,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class InventoryCrud implements IProductservices{
-    Scanner impresion = new Scanner(System.in);
+public class ProductCrud implements IProductservices{
+  Scanner impresion = new Scanner(System.in);
     Product product= new Product();
     Services.readerMavenCSV readerMavenCSV = new readerMavenCSV();
     productService productService= new productService();
@@ -37,7 +39,7 @@ public class InventoryCrud implements IProductservices{
 
         if (readerMavenCSV.getLastCode() >= 0) {
             //auto incremento de la cantidad otal del inventatio y añadiendo producto
-            incremental = readerMavenCSV.getLastCode();
+             incremental = readerMavenCSV.getLastCode();
             incremental++;
 
             productService.getProductList().add(new Product(incremental,product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
@@ -153,58 +155,22 @@ public class InventoryCrud implements IProductservices{
 
     @Override
     public void Searchid() {
-        System.out.println("Por favor eliga el metodo de busqueda \n1.Codigo\n2.Nombre");
-        int selection = 0;
-        if (selection == 1) {
-            System.out.print("Por favor ingrese el codigo del producto a consultar existencias: ");
 
-            int codeproduct = impresion.nextInt();
-            Optional<Product> product = productService.getProductList().stream()
-                    .filter(market -> market.getCode() == codeproduct)
-                    .findFirst();
-
-            if (product.isPresent()) {
-
-                product.ifPresent(products1 -> System.out.println("Producto:\n" + products1));
-
-            } else {
-                System.out.print("Por favor ingrese la letra por la que desea consultar : ");
-                String vowel = impresion.next();
-
-                Optional<String> vowelsearch = productService.getProductList().stream()
-                        .filter(market -> market.getName().equalsIgnoreCase(vowel.trim()))
-                        .map(Product::getName)  // Mapea el producto encontrado a su nombre
-                        .findFirst();
-
-
-                if (vowelsearch.isPresent()) {
-
-                    vowelsearch.ifPresent(print -> System.out.println(print));
-                }
-
-            }
-        }
     }
 
     @Override
     public void view()
 
     {
-
-            if (productService.getProductList().isEmpty())
-            {
-                readerMavenCSV.readerMavenCSV(productService);
-            }
-            // Imprime los productos recién agregados
-            productService.getProductList().stream().forEach(agregado -> System.out.println(agregado));
-
+        if (productService.getProductList().isEmpty())
+        {
+           readerMavenCSV.readerMavenCSV(productService);
         }
-
-
+        // Imprime los productos recién agregados
+        productService.getProductList().stream().forEach(agregado -> System.out.println(agregado));
 
 
     }
 
 
-
-
+}
