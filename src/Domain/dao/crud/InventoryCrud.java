@@ -22,17 +22,17 @@ public class InventoryCrud implements IProductservices{
     @Override
     public void add() {
 
-        System.out.print("Ingrese un nuevo producto\nNuevo producto: ");
+        System.out.print("Inseert new producto\nNew product: ");
         product.setName(impresion.next());
-        System.out.print("Asigne una descripcion  ");
+        System.out.print("Insert a description  ");
         product.setDescription(impresion.next());
-        System.out.print("Ingrese la categoria ");
+        System.out.print("Insert a category ");
         product.setCategory(impresion.next());
-        System.out.print("Ingrese  la etiqueta: ");
+        System.out.print("Insert a label: ");
         product.setLabel(impresion.next());
-        System.out.print("Ingrese el precio: ");
+        System.out.print("Insert a price: ");
         product.setPrice( impresion.nextDouble());
-        System.out.print("Ingrese  la imagen del producto: ");
+        System.out.print("Insert photo a prodcut : ");
         product.setUrl(impresion.next());
 
         if (readerMavenCSV.getLastCode() >= 0) {
@@ -41,10 +41,10 @@ public class InventoryCrud implements IProductservices{
             incremental++;
 
             productService.getProductList().add(new Product(incremental,product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
-            System.out.println("Producto agregado exitosamente");
+            System.out.println("Product successful ");
 
         } else {
-            System.out.println(" retorne a las instruciones ");
+            System.out.println(" return instruction ");
 
         }
 
@@ -54,19 +54,19 @@ public class InventoryCrud implements IProductservices{
     @Override
     public void remove() {
         try {
-            System.out.print("Para eliminar el producto debe ingresar el codigo:  ");
+            System.out.print("\nTo delete the product you must insert the code:  ");
             product.setCode(impresion.nextInt());
             int search = product.getCode();
 
             Optional<Product> RemoveProduct = productService.getProductList().stream().filter(persona -> persona.getCode() == search).findFirst();
             if (RemoveProduct.isPresent()) {
-                System.out.println("Se elimino el producto exitosamente");
+                System.out.println("Product delete successfully ");
 
                 productService.getProductList().removeIf(user -> user.getCode() == (search));
                 RemoveProduct.ifPresent(x -> System.out.println(x));
             } else {
-                throw new Exception("El codigo " + product.getCode() + " no exite \n" +
-                        "por favor ingrese un producto o valide la opcion 4 para ver los\nproductos existentes");
+                throw new Exception("Code " + product.getCode() + " not exist \n" +
+                        "please enter a product or validate to see the existing products");
             }
         } catch (Exception e) {
 
@@ -79,15 +79,15 @@ public class InventoryCrud implements IProductservices{
     @Override
     public void update() {
         try {
-            System.out.println("Ingrese el codigo del producto a modificar");
+            System.out.println("Insert the code of the product to modify");
             product.setCode(impresion.nextInt());
             int altersearch = product.getCode();
             Optional<Product> AlterProduct = productService.getProductList().stream().filter(persona -> persona.getCode() == altersearch).findFirst();
 
             if (AlterProduct.isPresent()) {
-                AlterProduct.ifPresent(product -> System.out.println("Producto:\n " + product));
+                AlterProduct.ifPresent(product -> System.out.println("Product:\n " + product));
 
-                System.out.println("Por favor indique que va modificar \n1.Name\n2.Price\n3.Description\n4.Category\5.label");
+                System.out.println("Please indicate what you are going to modify\n1.Name\n2.Price\n3.Description\n4.Category\n5.label");
 
                 int seleccion = impresion.nextInt();
                 switch (seleccion) {
@@ -101,16 +101,18 @@ public class InventoryCrud implements IProductservices{
                         break;
                     case 2:
                         System.out.println(" Alter price: ");
-                        Double price = impresion.nextDouble();
-                        productService.getProductList().stream().filter(alterPrice -> alterPrice.getCode() == altersearch).forEach(user -> {user.setPrice(price);});
-                        Optional<Double> searchPrice = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getPrice).findFirst();
-
-                        if (searchPrice.isPresent() && product.getPrice()<price) {
-
-                            searchPrice.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es menor: "+price));
-                        } else {
-                            searchPrice.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es mayor: "+price));
+                        Double priceModi = impresion.nextDouble();
+                        Optional<Double> Price = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getPrice).findFirst();
+                        productService.getProductList().stream().filter(pric ->pric.getCode() == altersearch).forEach(change -> {
+                            change.setPrice(priceModi); });
+                        if (Price.isPresent()&& product.getPrice()>priceModi){
+                            Price.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es menor: "+priceModi));
                         }
+                        else {
+                            Price.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es mayor: "+priceModi));
+                        }
+
+
 
                         System.out.println("Price successfully altered");
                         break;
@@ -141,8 +143,8 @@ public class InventoryCrud implements IProductservices{
                 }
 
             } else {
-                throw new Exception("El codigo " + product.getCode() + " no exite \n" +
-                        "por favor ingrese un producto o valide la opcion 4 para ver los\nproductos existentes");
+                throw new Exception("Coe " + product.getCode() + " not exist \n" +
+                        "please enter a product or validate to see the existing products");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -153,10 +155,12 @@ public class InventoryCrud implements IProductservices{
 
     @Override
     public void Searchid() {
-        System.out.println("Por favor eliga el metodo de busqueda \n1.Codigo\n2.Nombre");
+
+        System.out.println("Please choose the search method\n1.Code\n2.Name\n");
         int selection = 0;
+        selection = impresion.nextInt();
         if (selection == 1) {
-            System.out.print("Por favor ingrese el codigo del producto a consultar existencias: ");
+            System.out.print("Please insert the product code to check stock: ");
 
             int codeproduct = impresion.nextInt();
             Optional<Product> product = productService.getProductList().stream()
@@ -165,25 +169,24 @@ public class InventoryCrud implements IProductservices{
 
             if (product.isPresent()) {
 
-                product.ifPresent(products1 -> System.out.println("Producto:\n" + products1));
-
+                product.ifPresent(products1 -> System.out.println("Product:\n" + products1));
+            }
             } else {
-                System.out.print("Por favor ingrese la letra por la que desea consultar : ");
+                System.out.print("Please insert the characteristic word of the product to consult : ");
                 String vowel = impresion.next();
 
-                Optional<String> vowelsearch = productService.getProductList().stream()
-                        .filter(market -> market.getName().equalsIgnoreCase(vowel.trim()))
-                        .map(Product::getName)  // Mapea el producto encontrado a su nombre
-                        .findFirst();
+                Optional<String> vowelsearch = productService.getProductList().stream().filter(market -> market.getName().startsWith(vowel.trim())).map(Product::getName).findFirst();
+
+                Optional<Product> product = productService.getProductList().stream().filter(market -> market.getName().startsWith(vowel.trim())).findFirst();
 
 
                 if (vowelsearch.isPresent()) {
-
-                    vowelsearch.ifPresent(print -> System.out.println(print));
+                    vowelsearch.ifPresent(print -> System.out.println("Product found:\n "+print));
+                    product.ifPresent(print -> System.out.println("Description:\n"+print));
                 }
 
             }
-        }
+
     }
 
     @Override

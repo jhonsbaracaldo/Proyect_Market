@@ -12,27 +12,19 @@ public class EstructuraSearch {
     Services.readerMavenCSV readerMavenCSV = new readerMavenCSV();
     Product product = new Product();
     Scanner impresion = new Scanner(System.in);
-
-
-   //  Buscando la ultima pocision para asigna el numero siguiente
-
-
     public void Existing(Product product)
     {
         readerMavenCSV.readerMavenCSV(productService);
-//        readerMavenCSV.readerMavenCSV(productService);
         System.out.println("Ingrese el producto ");
         product.setName(impresion.next());
         String nombreABuscar = product.getName();
-        Optional<Product> productoEncontrado = productService.getProductList().stream()
-                .filter(produc -> produc.getName().equalsIgnoreCase(nombreABuscar.trim()))
-                .findFirst();
+        Optional<Product> productoEncontrado = productService.getProductList().stream().filter(produc -> produc.getName().equalsIgnoreCase(nombreABuscar.trim())).findFirst();
         if (productoEncontrado.isPresent()) {
             Product producto = productoEncontrado.get();
-            System.out.println("El producto que esta ingresando ya se encuentra en el inventario :" + producto.getName());
+            System.out.println("The product you are entering is already in inventory:" + producto.getName());
 
         } else {
-            System.out.println("Su producto no se encuentra en el inventario actual por favor registrelo");
+            System.out.println("Your product is not in the current inventory, please register it");
 
         }
 

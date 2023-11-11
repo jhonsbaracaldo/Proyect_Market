@@ -71,56 +71,37 @@ public class BuyServices {
 
                 Date date = new Date();
                 System.out.println("+-----------------------------------+");
-                System.out.println("|           Mi Tienda               |");
-                System.out.println("+-----------------------------+");
-                System.out.println("|Venta                        ");
+                System.out.println("|          Market App               |");
+                System.out.println("+-----------------------------------+");
+                System.out.println("|Sale                                ");
                 System.out.println("|" + date);
-                System.out.print("|Producto:");
+                System.out.print("|Product:");
                 BuyNameProductos(productService);
-                System.out.println("|Uniddes:" + units);
-                System.out.print("|Precio Unitario: ");
+                System.out.println("|Units:" + units);
+                System.out.print("|Price Units: ");
                 BuyPriceProducto(productService);
-                System.out.println("|Total sin IVA:" + suma + "  pesos");
+                System.out.println("|Subtotal:" + suma + "  pesos");
                 System.out.println("|IVA 19% :" + totalIva + " pesos");
                 System.out.println("|Total:" + total);
                 System.out.println("+-----------------------------------+");
-                System.out.println("       Gracias por su compra ");
+                System.out.println("       Thanks for your buy           ");
                 System.out.println("+-----------------------------------+");
 
             } else {
-                throw new Exception("El codigo " + product.getCode() + " no exite \n Productos actuales ");
-
+                throw new Exception("Code  " + product.getCode() + " not exist \n Actual product ");
             }
         }catch (Exception e){
 
             System.out.println(e.getMessage());
-//             readerMavenCSV.readerMavenCSV();
         }
 
     }
-     public void print(){
-
-     }
     public void BuyNameProductos(productService productService){
-
-
-        Optional<String> nameProduct = productService.getProductList().stream()
-                .filter(market -> market.getCode() == altersearch)
-                .map(Product::getName)
-                .findFirst();
-
-    nameProduct.ifPresent(print -> System.out.println(print));
-
-
-
+        Optional<String> nameProduct = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getName).findFirst();
+        nameProduct.ifPresent(print -> System.out.println(print));
     }
-
     public void BuyPriceProducto(productService productService){
-        Optional<Double> Price = productService.getProductList().stream()
-                .filter(market -> market.getCode() == altersearch)
-                .map(Product::getPrice)  //Encontrando Stock
-                .findFirst();
-
+        Optional<Double> Price = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getPrice).findFirst();
         Price.ifPresent(print -> System.out.println(print));
     }
 

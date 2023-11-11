@@ -1,7 +1,7 @@
 package Services;
 
 import Domain.dao.crud.productService;
-import model.RemoveToString;
+
 
 import Domain.entity.Product;
 import org.apache.commons.csv.CSVFormat;
@@ -11,7 +11,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 import java.util.Scanner;
 
 public class readerMavenCSV {
@@ -28,7 +28,6 @@ public class readerMavenCSV {
         List<Product> productList = productService.getProductList();
 
         try {
-            //3.leer el archivo CSV
             FileReader fileReader = new FileReader("C:\\Users\\acer\\IdeaProjects\\Market\\resources\\inventory.csv");
             CSVParser readerCSV = new CSVParser(fileReader, CSVFormat.DEFAULT);
 
@@ -49,15 +48,8 @@ public class readerMavenCSV {
                 product.setLabel(csvRecord.get(4));
                 product.setPrice(Double.parseDouble(csvRecord.get(5)));
                 product.setUrl(csvRecord.get(6));
-
-
                 Product producto = new Product(codigo, product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl());
                 productList.add(producto);
-
-                RemoveToString remove = new RemoveToString(codigo,product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl());
-                System.out.println(remove);
-
-
             }
         } catch (IOException e) {
             e.printStackTrace();
