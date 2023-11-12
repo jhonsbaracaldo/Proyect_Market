@@ -5,6 +5,7 @@ import Services.BuyServices;
 import Domain.dao.crud.InventoryCrud;
 import Domain.entity.Product;
 import Domain.dao.crud.productService;
+import Services.Search;
 
 import java.util.Date;
 import java.util.Optional;
@@ -14,7 +15,7 @@ public class Menu {
 
     InventoryCrud inventoryCrud = new InventoryCrud();
     BuyServices buyServices = new BuyServices();
-
+      Search search = new Search();
     Product product = new Product();
     productService productService = new productService();
     ProductCrud productCrud = new ProductCrud();
@@ -120,8 +121,7 @@ public class Menu {
 
             switch (selector) {
 
-
-                case 1 -> menuPrincipalInventoryCrud(); //dirige a inventory
+                case 1 -> menuPrincipalInventoryCrud();
                 case 2 -> menuPrincipalCrud(); //dirige a product
                 case 3 -> buyServices.Venta(productService);
                 case 4 -> menuUser();
@@ -165,7 +165,7 @@ public class Menu {
     public void menuPrincipalCrud() {
         Scanner VlInput = new Scanner(System.in);
         int selector = showMenuPrincipalCrud();
-        while (selector != 8) {
+        while (selector != 9) {
 
             switch (selector) {
 
@@ -176,8 +176,8 @@ public class Menu {
                 case 4 -> productCrud.update();
                 case 5 -> productCrud.remove();
                 case 6 -> productCrud.view();
-                case 7 -> menuInventSaleOptions();
-
+                case 8 -> menuInventSaleOptions();
+                case 7 -> search.Existing(product);
             }
             selector = showMenuPrincipalCrud();
         }
@@ -192,7 +192,8 @@ public class Menu {
                 "4. Modify",
                 "5. Delete",
                 "6  View Inventory",
-                "7. Exit",
+                "7  Existing",
+                "8. Exit",
                 "Choose an option:"
 
         };
@@ -200,10 +201,10 @@ public class Menu {
 
 
         Scanner scanner = new Scanner(System.in);
-        int selector = 8;
+        int selector = 9;
         try {
             selector = scanner.nextInt();
-            if (selector < 1 || selector > 7) {
+            if (selector < 1 || selector > 8) {
                 System.out.println("| The Option selected is not valid. Please try again |");
                 showMenuPrincipalCrud();
             }
@@ -220,7 +221,7 @@ public class Menu {
     public void menuPrincipalInventoryCrud() {
         Scanner VlInput = new Scanner(System.in);
         int selector = showMenuPrincipalInventoryCrud();
-        while (selector != 8) {
+        while (selector != 9) {
 
             switch (selector) {
 
@@ -231,7 +232,8 @@ public class Menu {
                 case 4 -> inventoryCrud.update();
                 case 5 -> inventoryCrud.remove();
                 case 6->inventoryCrud.view();
-                case 7 -> menuInventSaleOptions();
+                case 8 -> menuInventSaleOptions();
+                case 7 -> search.Existing(product);
             }
             selector = showMenuPrincipalInventoryCrud();
         }
@@ -246,7 +248,8 @@ public class Menu {
                 "4. Modify",
                 "5. Delete",
                 "6  View Inventory",
-                "7. Exit",
+                "7  Existing",
+                "8. Exit",
                 "Choose an option:"
 
         };

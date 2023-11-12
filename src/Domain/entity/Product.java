@@ -6,6 +6,8 @@ public class Product {
 
     private List<Product> productList;
 
+
+
     public List<Product> getProductList() {
         return productList;
     }
@@ -19,18 +21,29 @@ public class Product {
 
     private Integer code;
 
+    private  Integer cantidad;
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public void setCode(Integer code) {
         this.code = code;
     }
 
-    public Product(Integer code, String name, String description, String category, String label, double price, String url) {
-        this.code = code++;
+    public Product(Integer code,String name,Integer cantidad, String description, String category, String label, double price, String url ) {
         this.name = name;
         this.description = description;
         this.category = category;
         this.label = label;
         this.price = price;
         this.url = url;
+        this.code = code;
+        this.cantidad = cantidad;
     }
 
     public Product() {
@@ -92,6 +105,6 @@ public class Product {
     @Override
     public String toString() {
 
-        return String.format("%-10s|%-60s | %-25s | %-20s | %-20s | %-10.2f | %s", getCode(), getName(), getDescription(), getCategory(), getLabel(), getPrice(), getUrl());
+        return String.format("%-5s|%-60s |%-5s| %-20s | %-30s | %-20s | %-10.2f | %s", getCode(), getName(),getCantidad(), getDescription(), getCategory(), getLabel(), getPrice(), getUrl());
     }
 }
