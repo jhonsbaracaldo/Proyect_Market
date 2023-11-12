@@ -26,6 +26,8 @@ public class ProductCrud implements IProductservices{
 
         System.out.print("Inseert new producto\nNew product: ");
         product.setName(impresion.next());
+        System.out.println("Insert quantity of units:");
+        product.setCantidad(impresion.nextInt());
         System.out.print("Insert a description  ");
         product.setDescription(impresion.next());
         System.out.print("Insert a category ");
@@ -42,7 +44,7 @@ public class ProductCrud implements IProductservices{
             incremental = readerMavenCSV.getLastCode();
             incremental++;
 
-            productService.getProductList().add(new Product(incremental,product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
+            productService.getProductList().add(new Product(incremental,product.getName(),product.getCantidad(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
             System.out.println("Product successful ");
 
         } else {
@@ -113,9 +115,6 @@ public class ProductCrud implements IProductservices{
                         else {
                             Price.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es mayor: "+priceModi));
                         }
-
-
-
                         System.out.println("Price successfully altered");
                         break;
                     case 3:
@@ -141,6 +140,14 @@ public class ProductCrud implements IProductservices{
                             user.setLabel(label);
                         });
                         System.out.println("label successfully altered");
+                        break;
+                    case 6:
+                        System.out.println(" Alter Quantity:");
+                        int Units = impresion.nextInt();
+                        productService.getProductList().stream().filter(alterUnits -> alterUnits.getCode() == altersearch).forEach(user -> {
+                            user.setCantidad(Units);
+                            System.out.println("Quantity successfully altered");
+                        });
                         break;
                 }
 

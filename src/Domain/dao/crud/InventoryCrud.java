@@ -24,9 +24,11 @@ public class InventoryCrud implements IProductservices{
 
         System.out.print("Inseert new producto\nNew product: ");
         product.setName(impresion.next());
-        System.out.print("Insert a description  ");
+        System.out.println("Insert quantity of units:");
+        product.setCantidad(impresion.nextInt());
+        System.out.print("Insert a description: ");
         product.setDescription(impresion.next());
-        System.out.print("Insert a category ");
+        System.out.print("Insert a category:");
         product.setCategory(impresion.next());
         System.out.print("Insert a label: ");
         product.setLabel(impresion.next());
@@ -40,7 +42,7 @@ public class InventoryCrud implements IProductservices{
             incremental = readerMavenCSV.getLastCode();
             incremental++;
 
-            productService.getProductList().add(new Product(incremental,product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
+            productService.getProductList().add(new Product(incremental,product.getName(),product.getCantidad(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
             System.out.println("Product successful ");
 
         } else {
@@ -87,7 +89,7 @@ public class InventoryCrud implements IProductservices{
             if (AlterProduct.isPresent()) {
                 AlterProduct.ifPresent(product -> System.out.println("Product:\n " + product));
 
-                System.out.println("Please indicate what you are going to modify\n1.Name\n2.Price\n3.Description\n4.Category\n5.label");
+                System.out.println("Please indicate what you are going to modify\n1.Name\n2.Price\n3.Description\n4.Category\n5.label\n6.Quantity");
 
                 int seleccion = impresion.nextInt();
                 switch (seleccion) {
@@ -111,9 +113,6 @@ public class InventoryCrud implements IProductservices{
                         else {
                             Price.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es mayor: "+priceModi));
                         }
-
-
-
                         System.out.println("Price successfully altered");
                         break;
                     case 3:
@@ -140,6 +139,14 @@ public class InventoryCrud implements IProductservices{
                         });
                         System.out.println("label successfully altered");
                         break;
+                    case 6:
+                        System.out.println(" Alter Quantity:");
+                        int Units = impresion.nextInt();
+                        productService.getProductList().stream().filter(alterUnits -> alterUnits.getCode() == altersearch).forEach(user -> {
+                            user.setCantidad(Units);
+                        });
+                        break;
+
                 }
 
             } else {
@@ -154,6 +161,7 @@ public class InventoryCrud implements IProductservices{
     }
 
     @Override
+
     public void Searchid() {
 
         System.out.println("Please choose the search method\n1.Code\n2.Name\n");

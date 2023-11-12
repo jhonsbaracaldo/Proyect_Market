@@ -28,28 +28,33 @@ public class readerMavenCSV {
         List<Product> productList = productService.getProductList();
 
         try {
-            FileReader fileReader = new FileReader("C:\\Users\\acer\\IdeaProjects\\Market\\resources\\inventory.csv");
-            CSVParser readerCSV = new CSVParser(fileReader, CSVFormat.DEFAULT);
-
+            FileReader fileReader = new FileReader("C:\\Users\\acer\\IdeaProjects\\Prueba\\csv-product-exercise-java\\resources\\inventoryp.csv");
+            CSVParser csvParser= new CSVParser(fileReader, CSVFormat.DEFAULT);
 
             boolean primeraFila = true;
 
-            for (CSVRecord csvRecord : readerCSV) {
+            for (CSVRecord csvRecord : csvParser) {
                 if (primeraFila) {
                     primeraFila = false;
                     continue;
                 }
+                for (CSVRecord csvRecord1 : csvParser) {
 
-                int codigo = Integer.parseInt(csvRecord.get(0));
-                lastCode = Math.max(lastCode, codigo);
-                product.setName(csvRecord.get(1));
-                product.setDescription(csvRecord.get(2));
-                product.setCategory(csvRecord.get(3))  ;
-                product.setLabel(csvRecord.get(4));
-                product.setPrice(Double.parseDouble(csvRecord.get(5)));
-                product.setUrl(csvRecord.get(6));
-                Product producto = new Product(codigo, product.getName(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl());
-                productList.add(producto);
+
+                    int codigo = Integer.parseInt(csvRecord1.get(0));
+                    lastCode = Math.max(lastCode, codigo);
+                    product.setName(csvRecord1.get(1));
+                    product.setCantidad(Integer.parseInt (csvRecord.get(2)));
+                    product.setDescription(csvRecord1.get(3));
+                    product.setCategory(csvRecord1.get(4))  ;
+                    product.setLabel(csvRecord1.get(5));
+                    String pric = (csvRecord1.get(6));
+                    product.setPrice(Integer.parseInt(pric));
+                    product.setUrl(csvRecord1.get(7));
+
+                    Product producto = new Product(codigo, product.getName(),product.getCantidad(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl());
+                    productList.add(producto);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
