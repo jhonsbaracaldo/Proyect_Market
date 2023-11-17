@@ -6,13 +6,13 @@ import Domain.entity.Product;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Scanner;
-import Services.readerMavenCSV;
+
 public class BuyServices {
      int  altersearch;
        Product product = new Product();
        Domain.dao.crud.productService productService = new productService();
        Scanner reader= new Scanner(System.in);
-       readerMavenCSV readerMavenCSV =new readerMavenCSV();
+       ReaderMavenCSV readerMavenCSV =new ReaderMavenCSV();
     private int units;
 
     public int getUnits() {

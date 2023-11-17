@@ -3,7 +3,7 @@ package Domain.dao.crud;
 
 
 import Domain.entity.Product;
-import Services.readerMavenCSV;
+import Services.ReaderMavenCSV;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class ProductCrud implements IProductservices{
   Scanner impresion = new Scanner(System.in);
     Product product= new Product();
-    Services.readerMavenCSV readerMavenCSV = new readerMavenCSV();
+    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
     productService productService= new productService();
     int incremental;
     private List<Product> productList;

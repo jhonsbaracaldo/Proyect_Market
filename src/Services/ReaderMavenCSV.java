@@ -14,13 +14,13 @@ import java.util.List;
 
 import java.util.Scanner;
 
-public class readerMavenCSV {
+public class ReaderMavenCSV {
     Scanner reader = new Scanner(System.in);
     Product product = new Product();
      int lastCode =-1;
      public int getLastCode() {
         return lastCode;}
-//    public readerMavenCSV() {}
+//    public ReaderMavenCSV() {}
 
 
     public void  readerMavenCSV (productService productService){
@@ -28,7 +28,7 @@ public class readerMavenCSV {
         List<Product> productList = productService.getProductList();
 
         try {
-            FileReader fileReader = new FileReader("C:\\Users\\acer\\IdeaProjects\\Prueba\\csv-product-exercise-java\\resources\\inventoryp.csv");
+            FileReader fileReader = new FileReader("C:\\Users\\acer\\IdeaProjects\\Antiguo\\Market\\resources\\inventoryp.csv");
             CSVParser csvParser= new CSVParser(fileReader, CSVFormat.DEFAULT);
 
             boolean primeraFila = true;

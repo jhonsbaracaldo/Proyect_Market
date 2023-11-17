@@ -1,7 +1,7 @@
 package Domain.dao.crud;
 
 import Domain.entity.Product;
-import Services.readerMavenCSV;
+import Services.ReaderMavenCSV;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class InventoryCrud implements IProductservices{
     Scanner impresion = new Scanner(System.in);
     Product product= new Product();
-    Services.readerMavenCSV readerMavenCSV = new readerMavenCSV();
+    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
     productService productService= new productService();
     int incremental;
     private List<Product> productList;
@@ -24,7 +24,7 @@ public class InventoryCrud implements IProductservices{
 
         System.out.print("Inseert new producto\nNew product: ");
         product.setName(impresion.next());
-        System.out.println("Insert quantity of units:");
+        System.out.print("Insert quantity of units:");
         product.setCantidad(impresion.nextInt());
         System.out.print("Insert a description: ");
         product.setDescription(impresion.next());
@@ -191,6 +191,9 @@ public class InventoryCrud implements IProductservices{
                 if (vowelsearch.isPresent()) {
                     vowelsearch.ifPresent(print -> System.out.println("Product found:\n "+print));
                     product.ifPresent(print -> System.out.println("Description:\n"+print));
+                }
+                else {
+                    System.out.println("Product not existing, pleaase add the product");
                 }
 
             }

@@ -124,7 +124,7 @@ public class Menu {
                 case 1 -> menuPrincipalInventoryCrud();
                 case 2 -> menuPrincipalCrud(); //dirige a product
                 case 3 -> buyServices.Venta(productService);
-                case 4 -> menuUser();
+                case 4 ->  {menuUser();return;}
 
             }
             selector = showMenuInventSaleOptions();
@@ -176,8 +176,8 @@ public class Menu {
                 case 4 -> productCrud.update();
                 case 5 -> productCrud.remove();
                 case 6 -> productCrud.view();
-                case 8 -> menuInventSaleOptions();
                 case 7 -> search.Existing(product);
+                case 8 -> { menuInventSaleOptions();return;}
             }
             selector = showMenuPrincipalCrud();
         }
@@ -232,8 +232,8 @@ public class Menu {
                 case 4 -> inventoryCrud.update();
                 case 5 -> inventoryCrud.remove();
                 case 6->inventoryCrud.view();
-                case 8 -> menuInventSaleOptions();
                 case 7 -> search.Existing(product);
+                case 8 -> { menuInventSaleOptions();return;}
             }
             selector = showMenuPrincipalInventoryCrud();
         }
@@ -257,10 +257,10 @@ public class Menu {
 
 
         Scanner scanner = new Scanner(System.in);
-        int selector = 8;
+        int selector = 9;
         try {
             selector = scanner.nextInt();
-            if (selector < 1 || selector > 7) {
+            if (selector < 1 || selector > 8) {
                 System.out.println("| The Option selected is not valid. Please try again |");
                 showMenuPrincipalInventoryCrud();
             }

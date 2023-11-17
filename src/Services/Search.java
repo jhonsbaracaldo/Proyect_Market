@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Search {
     Domain.dao.crud.productService productService = new productService();
-    Services.readerMavenCSV readerMavenCSV = new readerMavenCSV();
+    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
     Product product = new Product();
     Scanner impresion = new Scanner(System.in);
 
@@ -32,6 +32,7 @@ public class Search {
 
 
         }
+
 
 
 

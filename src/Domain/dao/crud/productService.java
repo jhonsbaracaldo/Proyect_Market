@@ -1,16 +1,12 @@
 package Domain.dao.crud;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 import Domain.entity.Inventory;
-import Services.readerMavenCSV;
+import Services.ReaderMavenCSV;
 
-import Domain.dao.crud.IProductservices;
 //import model.RemoveToString;
 import Domain.entity.Product;
 
@@ -32,7 +28,7 @@ public class productService  {
     int incremental;
     Product product = new Product();
     Scanner impresion = new Scanner(System.in);
-    readerMavenCSV readerMavenCSV = new readerMavenCSV();
+    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
     Inventory inventory = new Inventory();
 }
 
