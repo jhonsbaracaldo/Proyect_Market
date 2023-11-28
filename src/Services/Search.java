@@ -26,7 +26,7 @@ public class Search {
                 .map(Product::getCantidad)  //Encontrando Stock
                 .findFirst();
 
-        if (stock.isPresent())
+
             StockSearch.ifPresent(products1 -> System.out.println("Product:\n" + products1));
             stock.ifPresent(existencia -> System.out.println("Units existing:" + existencia));
 

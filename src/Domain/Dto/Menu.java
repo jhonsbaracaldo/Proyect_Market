@@ -1,12 +1,16 @@
 package Domain.Dto;
 
 import Domain.dao.crud.ProductCrud;
+import Domain.dao.crud.UserValidation;
 import Services.BuyServices;
 import Domain.dao.crud.InventoryCrud;
 import Domain.entity.Product;
 import Domain.dao.crud.productService;
+import Services.Data_base.ConectionBD;
 import Services.Search;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Scanner;
@@ -17,13 +21,32 @@ public class Menu {
     BuyServices buyServices = new BuyServices();
       Search search = new Search();
     Product product = new Product();
+
+     private String userName ;
+
+    public Menu() throws SQLException {
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    private String password ;
     productService productService = new productService();
     ProductCrud productCrud = new ProductCrud();
 
-    public void menuUser() {
+    ConectionBD bd = new ConectionBD();
+    Connection conexion = bd.conectar();
+   UserValidation operaciones = new UserValidation(conexion);
+    public void menuUser() throws SQLException {
+
         Scanner scanner = new Scanner(System.in);
-        String userName = "";
-        String password = "";
+         userName = "";
+         password = "";
 
         while (true) {
             String[] mainMenu = {
@@ -47,6 +70,8 @@ public class Menu {
                     System.out.print("Please enter password: ");
                     password = scanner.nextLine();
                     System.out.println("User created");
+                    operaciones.insertarDatos(userName,password);
+
                     break;
                 case 2:
                     System.out.print("Please enter username: ");
@@ -56,6 +81,7 @@ public class Menu {
 
                     if (inputUserName.equals(userName) && inputPassword.equals(password)) {
                         System.out.println("\n Welcome" + " " + userName + "\n");
+
                         menuInventSaleOptions();
                     } else {
                         System.out.println("Failed login, incorrect username or password.");
@@ -68,6 +94,7 @@ public class Menu {
                 default:
                     System.out.println("Invalid option, please try again.");
                     break;
+
             }
         }
     }
@@ -114,7 +141,7 @@ public class Menu {
         return spaces.toString();
     }
 
-    public void menuInventSaleOptions() {
+    public void menuInventSaleOptions() throws SQLException {
         Scanner VlInput = new Scanner(System.in);
         int selector = showMenuInventSaleOptions();
         while (selector != 5) {
@@ -124,7 +151,7 @@ public class Menu {
                 case 1 -> menuPrincipalInventoryCrud();
                 case 2 -> menuPrincipalCrud(); //dirige a product
                 case 3 -> buyServices.Venta(productService);
-                case 4 ->  {menuUser();return;}
+//                case 4 ->  {menuUser();return;}
 
             }
             selector = showMenuInventSaleOptions();
@@ -162,7 +189,7 @@ public class Menu {
     }
 
     //Menu principal de acciones en productos
-    public void menuPrincipalCrud() {
+    public void menuPrincipalCrud() throws SQLException {
         Scanner VlInput = new Scanner(System.in);
         int selector = showMenuPrincipalCrud();
         while (selector != 9) {
@@ -218,7 +245,7 @@ public class Menu {
     }
 
     //Menu principal acciones inventario
-    public void menuPrincipalInventoryCrud() {
+    public void menuPrincipalInventoryCrud() throws SQLException {
         Scanner VlInput = new Scanner(System.in);
         int selector = showMenuPrincipalInventoryCrud();
         while (selector != 9) {

@@ -19,7 +19,15 @@
             <artifactId>commons-csv</artifactId>
             <version>1.10.0</version> <!-- Asegúrate de usar la última versión disponible -->
         </dependency>
+
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.0</version>
+        </dependency>
     </dependencies>
+
 
 
 
