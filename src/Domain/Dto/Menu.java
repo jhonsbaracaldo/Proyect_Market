@@ -150,8 +150,8 @@ public class Menu {
 
                 case 1 -> menuPrincipalInventoryCrud();
                 case 2 -> menuPrincipalCrud(); //dirige a product
-                case 3 -> buyServices.Venta(productService);
-//                case 4 ->  {menuUser();return;}
+                case 3 -> menuPrincipalBuy();
+                case 4 -> menuUser();
 
             }
             selector = showMenuInventSaleOptions();
@@ -196,8 +196,7 @@ public class Menu {
 
             switch (selector) {
 
-
-                case 1 -> productCrud.Searchid();
+                case 1 -> operaciones.Stock();
                 case 2 -> productCrud.add();
                 case 3 -> productCrud.Searchid();
                 case 4 -> productCrud.update();
@@ -213,7 +212,7 @@ public class Menu {
     static int showMenuPrincipalCrud() {
         String[] menuPrincipalCrud = {
                 "Product Modification & Control",
-                "1. Query duplicate code",
+                "1. List products with stock",
                 "2. Add",
                 "3. Consult",
                 "4. Modify",
@@ -277,6 +276,53 @@ public class Menu {
                 "6  View Inventory",
                 "7  Existing",
                 "8. Exit",
+                "Choose an option:"
+
+        };
+        printMenuWithBorder(menuInventory);
+
+
+        Scanner scanner = new Scanner(System.in);
+        int selector = 9;
+        try {
+            selector = scanner.nextInt();
+            if (selector < 1 || selector > 8) {
+                System.out.println("| The Option selected is not valid. Please try again |");
+                showMenuPrincipalInventoryCrud();
+            }
+        } catch (Exception e) {
+            System.out.println("| The Option selected is not valid. Please try again |");
+            System.out.println("You are entering a different type of character");
+            showMenuPrincipalInventoryCrud();
+        }
+        return selector;
+    }
+
+    public void menuPrincipalBuy() throws SQLException {
+        Scanner VlInput = new Scanner(System.in);
+        int selector = showMenuPrincipalBuy();
+        while (selector != 9) {
+
+            switch (selector) {
+
+
+                case 1 -> buyServices.Venta(productService);
+                case 2 -> buyServices.BuyAll();
+                case 3 -> buyServices.BuyCategory();
+                case 4 -> buyServices.BuyDate();
+                case 5 -> { menuInventSaleOptions();return;}
+            }
+            selector = showMenuPrincipalBuy();
+        }
+    }
+    static int showMenuPrincipalBuy() {
+        String[] menuInventory = {
+                "Product Modification & Control",
+                "1. Sale",
+                "2. Sales history",
+                "3. Sales by category",
+                "4. Sale for date",
+                "5. Exit",
                 "Choose an option:"
 
         };

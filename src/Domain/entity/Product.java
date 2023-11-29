@@ -14,8 +14,8 @@ public class Product {
 
     private String name;
     private String description;
-    private String category;
-    private String label;
+    private Integer category;
+    private Integer label;
     private double price;
     private String url;
 
@@ -35,7 +35,7 @@ public class Product {
         this.code = code;
     }
 
-    public Product(Integer code,String name,Integer cantidad, String description, String category, String label, double price, String url ) {
+    public Product(Integer code,String name,Integer cantidad, String description, Integer category, Integer label, double price, String url ) {
         this.name = name;
         this.description = description;
         this.category = category;
@@ -58,11 +58,11 @@ public class Product {
         return description;
     }
 
-    public String getCategory() {
+    public Integer getCategory() {
         return category;
     }
 
-    public String getLabel() {
+    public Integer getLabel() {
         return label;
     }
 
@@ -82,11 +82,11 @@ public class Product {
         this.description = description;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(Integer label) {
         this.label = label;
     }
 

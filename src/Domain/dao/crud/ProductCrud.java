@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class ProductCrud implements IProductservices{
-  Scanner impresion = new Scanner(System.in);
-    Product product= new Product();
-//    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
-    productService productService= new productService();
+public class ProductCrud implements IProductservices {
+    Scanner impresion = new Scanner(System.in);
+    Product product = new Product();
+    //    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
+    productService productService = new productService();
     int incremental;
     private List<Product> productList;
     ConectionBD bd = new ConectionBD();
@@ -31,47 +31,72 @@ public class ProductCrud implements IProductservices{
     }
 
     @Override
-    public void add() {
+    public void add()  {
 
-        try  {
+        try {
 
-            System.out.print("Inseert new producto\nNew product: ");
+            System.out.print("Insert new producto\nNew product: ");
             product.setName(impresion.next());
             System.out.print("Insert quantity of units:");
             product.setCantidad(impresion.nextInt());
             System.out.print("Insert a description:  ");
             product.setDescription(impresion.next());
-            System.out.print("Insert a category: ");
-            product.setCategory(impresion.next());
-            System.out.print("Insert a label: ");
-            product.setLabel(impresion.next());
-            System.out.print("Insert a price: ");
-            product.setPrice(impresion.nextDouble());
-            System.out.print("Insert photo a prodcut : ");
-            product.setUrl(impresion.next());
+            System.out.print("Select the category: \nIf your category does not exist, select 1.To add category |2.To continue whit regitration\n  ");
+            String sql = "Select * from productos.category";
+            try (Statement stmt = conexion.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    String impresion = String.format("%-8s|%-8s",rs.getInt("id_category"),rs.getString("name"));
+                    System.out.println(impresion);
+                }
+                int selection = 0;
+                selection = impresion.nextInt();
+                if (selection == 1) {
+                    System.out.println("Enter category");
+                    String category = impresion.next();
+                    operaciones.addCategory(category);
+                    String impresio = String.format("%-8s|%-8s",rs.getInt("id_category"),rs.getString("name"));
+                    System.out.println(impresio);
+                    System.out.println("Select Category ");
+                    product.setCategory(impresion.nextInt());
+                    System.out.print("Insert a price: ");
+                    product.setPrice(impresion.nextDouble());
+                    System.out.print("Insert photo a product : ");
+                    product.setUrl(impresion.next());
+                    operaciones.Producto(product.getName(), product.getCantidad(), product.getPrice(), product.getDescription(), product.getUrl(), product.getCategory());
 
-            operaciones.Producto(product.getName(), product.getCantidad(), product.getPrice(), product.getDescription(), product.getCategory(), product.getLabel(), product.getUrl());
-        }
-        catch (Exception e){
+                } else {
+                    System.out.println("Select Category ");
+                    product.setCategory(impresion.nextInt());
+                    System.out.print("Insert a price: ");
+                    product.setPrice(impresion.nextDouble());
+                    System.out.print("Insert photo a product : ");
+                    product.setUrl(impresion.next());
 
 
-        }
+                    operaciones.Producto(product.getName(), product.getCantidad(), product.getPrice(), product.getDescription(), product.getUrl(), product.getCategory());
+
+                }
+
 
 //            productService.getProductList().add(new Product(incremental,product.getName(),product.getCantidad(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
 //            System.out.println("Product successful ");
 
 
-
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
     @Override
     public void remove() throws SQLException {
 
-            System.out.print("\nTo delete the product you must insert the code:  ");
-            product.setCode(impresion.nextInt());
-            int search = product.getCode();
-             operaciones.Remove(search);
+        System.out.print("\nTo delete the product you must insert the code:  ");
+        product.setCode(impresion.nextInt());
+        int search = product.getCode();
+        operaciones.Remove(search);
 
 
 //            Optional<Product> RemoveProduct = productService.getProductList().stream().filter(persona -> persona.getCode() == search).findFirst();
@@ -166,6 +191,7 @@ public class ProductCrud implements IProductservices{
             throw new RuntimeException(ex);
         }
     }
+
     @Override
     public void Searchid() {
 
@@ -181,8 +207,8 @@ public class ProductCrud implements IProductservices{
                 if (rs.next()) {
                     String productName = rs.getString("nameproduct");
                     System.out.println("Nombre del producto: " + productName);
-                    String impresion = String.format("%-5s|%-40s |%-5s| %-20s | %-30s | %-20s | %-10s | %s", rs.getInt("id_product"), rs.getString("nameproduct"), rs.getInt("quantity"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"),
-                            rs.getString("label"), rs.getString("url"));
+                    String impresion = String.format("%-5s|%-40s |%-5s| %-20s | %-30s | %-20s | %-10s | %s", rs.getInt("id_product"), rs.getString("nameproduct"), rs.getInt("quantity"), rs.getDouble("price"), rs.getString("description"), rs.getInt("id_category"),
+                            rs.getInt("id_label"), rs.getString("url"));
                     System.out.println(impresion);
 
                 }
@@ -194,26 +220,27 @@ public class ProductCrud implements IProductservices{
 
         }
     }
-        @Override
+
+    @Override
     public void view() throws SQLException {
 
-        String sql = "SELECT * FROM productos.product";
+
+        String sql = "SELECT * FROM productos.table_productos";
         try (Statement stmt = conexion.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-            String impresion =String.format("%-5s|%-40s |%-5s| %-20s | %-30s | %-20s | %-10s | %s",rs.getInt("id_product"),rs.getString("nameproduct"),rs.getInt("quantity"), rs.getDouble("price"), rs.getString("description"), rs.getString("category"),
-                        rs.getString("label"), rs.getString("url"));
+                String impresion = String.format("%-5s|%-40s |%-5s| %-20s | %-30s | %-20s | %s", rs.getInt("id_product"), rs.getString("nameproduct"), rs.getInt("quantity"), rs.getDouble("price"), rs.getString("description"), rs.getString("name_category")
+                       ,rs.getString("url"));
                 System.out.println(impresion);
-
 
 
 
             }
         }
-
     }
-
-
-
-
 }
+
+
+
+
+

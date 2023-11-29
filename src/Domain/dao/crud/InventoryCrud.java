@@ -29,9 +29,9 @@ public class InventoryCrud implements IProductservices{
         System.out.print("Insert a description: ");
         product.setDescription(impresion.next());
         System.out.print("Insert a category:");
-        product.setCategory(impresion.next());
+        product.setCategory(impresion.nextInt());
         System.out.print("Insert a label: ");
-        product.setLabel(impresion.next());
+        product.setLabel(impresion.nextInt());
         System.out.print("Insert a price: ");
         product.setPrice( impresion.nextDouble());
         System.out.print("Insert photo a prodcut : ");
@@ -125,18 +125,18 @@ public class InventoryCrud implements IProductservices{
                         break;
                     case 4:
                         System.out.println(" Alter Category:");
-                        String category = impresion.next();
-                        productService.getProductList().stream().filter(alterCategory -> alterCategory.getCode() == altersearch).forEach(user -> {
-                            user.setCategory(category);
-                        });
+//                      String category = impresion.next();
+//                        productService.getProductList().stream().filter(alterCategory -> alterCategory.getCode() == altersearch).forEach(user -> {
+//                            user.setCategory(category);
+//                        });
                         System.out.println("Category successfully altered");
                         break;
                     case 5:
                         System.out.println(" Alter label:");
-                        String label = impresion.next();
-                        productService.getProductList().stream().filter(alterlabel -> alterlabel.getCode() == altersearch).forEach(user -> {
-                            user.setLabel(label);
-                        });
+//                        String label = impresion.next();
+//                        productService.getProductList().stream().filter(alterlabel -> alterlabel.getCode() == altersearch).forEach(user -> {
+//                            user.setLabel(label);
+//                        });
                         System.out.println("label successfully altered");
                         break;
                     case 6:

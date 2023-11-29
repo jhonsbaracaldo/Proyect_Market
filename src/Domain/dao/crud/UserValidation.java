@@ -1,13 +1,11 @@
 package Domain.dao.crud;
 
-import Domain.Dto.Menu;
-
 import java.sql.*;
 import java.util.Scanner;
 
 public class UserValidation {
     private Connection conexion;
-
+     Scanner scanner = new Scanner(System.in);
     public UserValidation(Connection conexion) {
         this.conexion = conexion;
     }
@@ -17,23 +15,23 @@ public class UserValidation {
         try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
             pstmt.setString(1, user);
             pstmt.setString(2, password);
-            System.out.println("Datos insertados correctamente");
             pstmt.executeUpdate();
 
 
         }
     }
-    public void Producto(String dato, Integer Cantidad,Double price,String description,String category,String label,String url) throws SQLException {
-        String sql = "INSERT INTO productos.product (nameproduct,quantity,price,description,category,label,url) VALUES (?,?,?,?,?,?,?)";
+    public void Producto(String dato,Integer Cantidad,Double price,String description, String url,Integer category) throws SQLException {
+        String sql = "INSERT INTO productos.product (nameproduct,quantity,price,description,url,id_category) VALUES (?,?,?,?,?,?)";
+
+
         try (PreparedStatement pstmt = conexion.prepareStatement(sql))
         {
             pstmt.setString(1, dato);
             pstmt.setInt(2, Cantidad);
             pstmt.setDouble(3, price);
             pstmt.setString(4, description);
-            pstmt.setString(5, category);
-            pstmt.setString(6, label);
-            pstmt.setString(7, url);
+            pstmt.setString(5, url);
+            pstmt.setInt(6, category);
             System.out.println( "Datos insertados correctamente");
             pstmt.executeUpdate();
 
@@ -114,7 +112,7 @@ public class UserValidation {
     }
 
 
-    public   void updateProduct5(Integer code ,Integer Quantity) throws SQLException {
+    public  void updateProduct5(Integer code ,Integer Quantity) throws SQLException {
         String sql5 = "UPDATE productos.product SET quantity = ? WHERE id_product ="+code;
         PreparedStatement pstmt = conexion.prepareStatement(sql5);
         pstmt.setInt(1, Quantity);
@@ -126,8 +124,78 @@ public class UserValidation {
         }
     }
 
+    public void category () throws SQLException {
 
-}
+        String sql = "SELECT * FROM  productos.vista_categorias_etiquetas";
+        try (Statement stmt = conexion.createStatement();
+             ResultSet rs = stmt.executeQuery(sql))
+        {
+           while (rs.next()){
+              Integer idCategory = rs.getInt("id_category");
+                String nameCategory = rs.getString("name");
+                Integer idLabel = rs.getInt("id_label");
+                String nameLabel = rs.getString("label_name");
+
+               System.out.print("Id Category:"+idCategory+"|"+" Name Category "+nameCategory);
+               System.out.println("Id Labels:"+idLabel+"| "+"Name Labels "+nameLabel);
+               System.out.println("------------");
+           }
+
+
+        }
+    }
+    public void addCategory(String category) throws SQLException {
+        String sql = "INSERT INTO productos.category (name) VALUES (?)";
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql))
+        {
+            pstmt.setString(1,category);
+
+            System.out.println( "Category entered correctly ");
+            pstmt.executeUpdate();
+
+        }
+    }
+    public void addBuy(Integer id_prodcuto, String fecha,Integer cantidad,Double total) {
+        String sql = "INSERT INTO ventas.ventas (id_product,date,quantity,total_safe) VALUES (?,?,?,?)";
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
+            pstmt.setInt(1, id_prodcuto);
+            pstmt.setDate(2, Date.valueOf(fecha));
+            pstmt.setInt(3, cantidad);
+            pstmt.setDouble(4, total);
+
+            System.out.println("Category entered correctly ");
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void Stock () throws SQLException {
+        System.out.println("insert the number for which you want to verify the quantities");
+        Integer Stock = scanner.nextInt();
+        String sql = "SELECT * FROM productos.product WHERE quantity < "+Stock;
+        try (Statement stmt = conexion.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()){
+                String impresion = String.format("%-5s|%-40s |%-5s| %-20s | %-30s | %-20s ", rs.getInt("id_product"), rs.getString("nameproduct"), rs.getInt("quantity"), rs.getDouble("price"), rs.getString("description")
+                        ,rs.getString("url"));
+                System.out.println(impresion);
+            }
+
+
+        }
+    }
+
+
+
+    }
+
+
+
+
+
+
 
 
 

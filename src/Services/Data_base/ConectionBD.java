@@ -14,7 +14,7 @@ public class ConectionBD {
     private Connection conexion;
     public Connection conectar() throws SQLException {
                 conexion = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Market", user, password);
-                System.out.println("Conexión exitosa");
+               System.out.println("*/*/*/ CONECTION SUCESSFULLY /*/*");
                 return conexion;
     }
 
