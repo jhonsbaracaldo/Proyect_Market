@@ -3,25 +3,22 @@ package Domain.dao.crud;
 
 
 import Domain.entity.Product;
-import Services.Data_base.ConectionBD;
-import Services.ReaderMavenCSV;
+import Domain.Data_base.ConectionBD;
 
-import javax.sound.midi.Soundbank;
 import java.sql.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class ProductCrud implements IProductservices {
     Scanner impresion = new Scanner(System.in);
     Product product = new Product();
     //    ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
-    productService productService = new productService();
+    ProductService productService = new ProductService();
     int incremental;
     private List<Product> productList;
     ConectionBD bd = new ConectionBD();
     Connection conexion = bd.conectar();
-    UserValidation operaciones = new UserValidation(conexion);
+    BdValidation operaciones = new BdValidation(conexion);
 
     public ProductCrud() throws SQLException {
     }
@@ -79,7 +76,7 @@ public class ProductCrud implements IProductservices {
                 }
 
 
-//            productService.getProductList().add(new Product(incremental,product.getName(),product.getCantidad(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
+//            ProductService.getProductList().add(new Product(incremental,product.getName(),product.getCantidad(), product.getDescription(), product.getCategory(), product.getLabel(), product.getPrice(), product.getUrl()));
 //            System.out.println("Product successful ");
 
 
@@ -99,11 +96,11 @@ public class ProductCrud implements IProductservices {
         operaciones.Remove(search);
 
 
-//            Optional<Product> RemoveProduct = productService.getProductList().stream().filter(persona -> persona.getCode() == search).findFirst();
+//            Optional<Product> RemoveProduct = ProductService.getProductList().stream().filter(persona -> persona.getCode() == search).findFirst();
 //            if (RemoveProduct.isPresent()) {
 //
 //
-//                productService.getProductList().removeIf(user -> user.getCode() == (search));
+//                ProductService.getProductList().removeIf(user -> user.getCode() == (search));
 //                RemoveProduct.ifPresent(x -> System.out.println(x));
 //            } else {
 
@@ -116,7 +113,7 @@ public class ProductCrud implements IProductservices {
             System.out.println("Insert the code of the product to modify");
             product.setCode(impresion.nextInt());
             int altersearch = product.getCode();
-//            Optional<Product> AlterProduct = productService.getProductList().stream().filter(persona -> persona.getCode() == altersearch).findFirst();
+//            Optional<Product> AlterProduct = ProductService.getProductList().stream().filter(persona -> persona.getCode() == altersearch).findFirst();
 //
 //            if (AlterProduct.isPresent()) {
 //                AlterProduct.ifPresent(product -> System.out.println("Product:\n " + product));
@@ -129,7 +126,7 @@ public class ProductCrud implements IProductservices {
                     System.out.println("Alter Name:");
                     String name = impresion.next();
                     operaciones.updateProduct(altersearch, name);
-//                        productService.getProductList().stream().filter(alterName -> alterName.getCode() == altersearch).forEach(user -> {
+//                        ProductService.getProductList().stream().filter(alterName -> alterName.getCode() == altersearch).forEach(user -> {
 //                            user.setName(name);
 //                        });
 
@@ -138,8 +135,8 @@ public class ProductCrud implements IProductservices {
                     System.out.println(" Alter price: ");
                     Double priceModi = impresion.nextDouble();
                     operaciones.updateProduct4(altersearch, priceModi);
-//                        Optional<Double> Price = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getPrice).findFirst();
-//                        productService.getProductList().stream().filter(pric ->pric.getCode() == altersearch).forEach(change -> {
+//                        Optional<Double> Price = ProductService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getPrice).findFirst();
+//                        ProductService.getProductList().stream().filter(pric ->pric.getCode() == altersearch).forEach(change -> {
 //                            change.setPrice(priceModi); });
 //                        if (Price.isPresent()&& product.getPrice()>priceModi){
 //                            Price.ifPresent(priceproduct-> System.out.println("El precio actual es: "+priceproduct+" El precio ingreso es menor: "+priceModi));
@@ -153,7 +150,7 @@ public class ProductCrud implements IProductservices {
                     System.out.println(" Alter Description:");
                     String description = impresion.next();
                     operaciones.updateProduct1(altersearch, description);
-//                        productService.getProductList().stream().filter(persona -> persona.getCode() == altersearch).forEach(user -> {
+//                        ProductService.getProductList().stream().filter(persona -> persona.getCode() == altersearch).forEach(user -> {
 //                            user.setDescription(description);
 //                        });
 
@@ -162,7 +159,7 @@ public class ProductCrud implements IProductservices {
                     System.out.println(" Alter Category:");
                     String category = impresion.next();
                     operaciones.updateProduct2(altersearch, category);
-//                        productService.getProductList().stream().filter(alterCategory -> alterCategory.getCode() == altersearch).forEach(user -> {
+//                        ProductService.getProductList().stream().filter(alterCategory -> alterCategory.getCode() == altersearch).forEach(user -> {
 //                            user.setCategory(category);
 //                        });
 
@@ -171,7 +168,7 @@ public class ProductCrud implements IProductservices {
                     System.out.println(" Alter label:");
                     String label = impresion.next();
                     operaciones.updateProduct3(altersearch, label);
-//                        productService.getProductList().stream().filter(alterlabel -> alterlabel.getCode() == altersearch).forEach(user -> {
+//                        ProductService.getProductList().stream().filter(alterlabel -> alterlabel.getCode() == altersearch).forEach(user -> {
 //                            user.setLabel(label);
 //                        });
 
@@ -180,7 +177,7 @@ public class ProductCrud implements IProductservices {
                     System.out.println(" Alter Quantity:");
                     int Units = impresion.nextInt();
                     operaciones.updateProduct5(altersearch, Units);
-//                        productService.getProductList().stream().filter(alterUnits -> alterUnits.getCode() == altersearch).forEach(user -> {
+//                        ProductService.getProductList().stream().filter(alterUnits -> alterUnits.getCode() == altersearch).forEach(user -> {
 //                            user.setCantidad(Units);
 //                            System.out.println("Quantity successfully altered");
 //                        });

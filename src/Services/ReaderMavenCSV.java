@@ -1,6 +1,6 @@
 package Services;
 
-import Domain.dao.crud.productService;
+import Domain.dao.crud.ProductService;
 
 
 import Domain.entity.Product;
@@ -23,8 +23,8 @@ public class ReaderMavenCSV {
 //    public ReaderMavenCSV() {}
 
 
-    public void  readerMavenCSV (productService productService){
-        //1.Obtener la lista de productos que se encuentra en el objeto productService
+    public void  readerMavenCSV (ProductService productService){
+        //1.Obtener la lista de productos que se encuentra en el objeto ProductService
         List<Product> productList = productService.getProductList();
 
         try {

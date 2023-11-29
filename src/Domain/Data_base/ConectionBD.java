@@ -1,11 +1,7 @@
-package Services.Data_base;
+package Domain.Data_base;
 
-import Domain.Dto.Menu;
-
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConectionBD {

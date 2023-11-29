@@ -1,18 +1,16 @@
 package Domain.Dto;
 
 import Domain.dao.crud.ProductCrud;
-import Domain.dao.crud.UserValidation;
+import Domain.dao.crud.BdValidation;
+import Domain.dao.crud.ProductService;
 import Services.BuyServices;
 import Domain.dao.crud.InventoryCrud;
 import Domain.entity.Product;
-import Domain.dao.crud.productService;
-import Services.Data_base.ConectionBD;
+import Domain.Data_base.ConectionBD;
 import Services.Search;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Menu {
@@ -36,12 +34,12 @@ public class Menu {
     }
 
     private String password ;
-    productService productService = new productService();
+    ProductService productService = new ProductService();
     ProductCrud productCrud = new ProductCrud();
 
     ConectionBD bd = new ConectionBD();
     Connection conexion = bd.conectar();
-   UserValidation operaciones = new UserValidation(conexion);
+   BdValidation operaciones = new BdValidation(conexion);
     public void menuUser() throws SQLException {
 
         Scanner scanner = new Scanner(System.in);

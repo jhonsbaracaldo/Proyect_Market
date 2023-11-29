@@ -1,11 +1,10 @@
 package Services;
 
-import Domain.dao.crud.UserValidation;
-import Domain.dao.crud.productService;
+import Domain.dao.crud.BdValidation;
+import Domain.dao.crud.ProductService;
 import Domain.entity.Product;
-import Services.Data_base.ConectionBD;
+import Domain.Data_base.ConectionBD;
 
-import javax.sound.midi.Soundbank;
 import java.sql.*;
 import java.util.Optional;
 import java.util.Scanner;
@@ -13,12 +12,12 @@ import java.util.Scanner;
 public class BuyServices {
      int  altersearch;
        Product product = new Product();
-       Domain.dao.crud.productService productService = new productService();
+       ProductService productService = new ProductService();
        Scanner reader= new Scanner(System.in);
        ReaderMavenCSV readerMavenCSV =new ReaderMavenCSV();
     ConectionBD bd = new ConectionBD();
     Connection conexion = bd.conectar();
-    UserValidation operaciones = new UserValidation(conexion);
+    BdValidation operaciones = new BdValidation(conexion);
     private int units;
 Scanner print = new Scanner(System.in);
     public BuyServices() throws SQLException {
@@ -46,10 +45,10 @@ Scanner print = new Scanner(System.in);
 
 
 
-    public void Venta( productService productService){
-//      readerMavenCSV.readerMavenCSV(productService);
-//        if (productService.getProductList().isEmpty()) {
-//            productService.getProductList().add(product);
+    public void Venta( ProductService productService){
+//      readerMavenCSV.readerMavenCSV(ProductService);
+//        if (ProductService.getProductList().isEmpty()) {
+//            ProductService.getProductList().add(product);
 //        }
         try {
 
@@ -68,7 +67,7 @@ Scanner print = new Scanner(System.in);
 
                     System.out.println(impresion);
 
-//             Optional<Product> MarketProduct = productService.getProductList().stream().filter(buy -> buy.getCode() == altersearch).findFirst();
+//             Optional<Product> MarketProduct = ProductService.getProductList().stream().filter(buy -> buy.getCode() == altersearch).findFirst();
 //             MarketProduct.ifPresent(products1 -> System.out.println(products1));
 
 
@@ -79,7 +78,7 @@ Scanner print = new Scanner(System.in);
 
                     suma = (rs.getDouble("price") * units);
 
-//               suma = productService.getProductList().stream()
+//               suma = ProductService.getProductList().stream()
 //                        .filter(producto -> producto.getCode() == altersearch)
 //                        .mapToDouble(producto -> units * producto.getPrice()) // Calcular la suma
 //                        .sum();
@@ -118,11 +117,11 @@ Scanner print = new Scanner(System.in);
         }
 
     }
-    public void BuyNameProductos(productService productService){
+    public void BuyNameProductos(ProductService productService){
         Optional<String> nameProduct = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getName).findFirst();
         nameProduct.ifPresent(print -> System.out.println(print));
     }
-    public void BuyPriceProducto(productService productService){
+    public void BuyPriceProducto(ProductService productService){
         Optional<Double> Price = productService.getProductList().stream().filter(market -> market.getCode() == altersearch).map(Product::getPrice).findFirst();
         Price.ifPresent(print -> System.out.println(print));
     }

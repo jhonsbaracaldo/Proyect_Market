@@ -13,7 +13,7 @@ import Domain.entity.Product;
 import static java.util.Arrays.stream;
 
 
-public class productService  {
+public class ProductService {
     private List<Product> productList;
     private int code = 0;
 
@@ -21,7 +21,7 @@ public class productService  {
         return productList;
     }
 
-    public productService() {
+    public ProductService() {
         productList = new ArrayList<>();
     }
 

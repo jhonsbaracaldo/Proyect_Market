@@ -3,10 +3,10 @@ package Domain.dao.crud;
 import java.sql.*;
 import java.util.Scanner;
 
-public class UserValidation {
+public class BdValidation {
     private Connection conexion;
      Scanner scanner = new Scanner(System.in);
-    public UserValidation(Connection conexion) {
+    public BdValidation(Connection conexion) {
         this.conexion = conexion;
     }
 
@@ -187,9 +187,7 @@ public class UserValidation {
         }
     }
 
-
-
-    }
+}
 
 
 

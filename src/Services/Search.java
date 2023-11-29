@@ -1,13 +1,13 @@
 package Services;
 
-import Domain.dao.crud.productService;
+import Domain.dao.crud.ProductService;
 import Domain.entity.Product;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class Search {
-    Domain.dao.crud.productService productService = new productService();
+    ProductService productService = new ProductService();
     ReaderMavenCSV readerMavenCSV = new ReaderMavenCSV();
     Product product = new Product();
     Scanner impresion = new Scanner(System.in);
